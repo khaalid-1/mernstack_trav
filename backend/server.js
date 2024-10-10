@@ -3,6 +3,7 @@ import colors from "colors";
 import { config } from "./config/config.js";
 import { connectDB } from "./config/db.js";
 import router from "./router/goalRouter.js";
+import { errorHandler } from "./middleware/errorHandler.js";
 const app = express();
 // middlewares
 
@@ -15,7 +16,7 @@ connectDB();
 
 app.use("/api/v1/goals",router)
 
-
+app.use(errorHandler)
 app.listen(config.port, () => {
   console.log(`Server is running 🚀🚀🚀 on port ${config.port}`.cyan);
 });

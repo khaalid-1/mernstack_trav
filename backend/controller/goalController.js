@@ -7,10 +7,12 @@ export const setGoal = asynHandler(async (req, res) => {
         res.status(400)
         throw new Error("Please Enter your goal ")
     }
-  const goals = await Goal.find();
+
+  const goal = new Goal({text})
+  await goal.save()
   res.status(200).json({
     status: true,
-    data: goals,
+    goal: goal,
   });
 });
 
@@ -23,22 +25,43 @@ export const getGoals = asynHandler(async (req, res) => {
 });
 
 export const updateGoal = asynHandler(async (req, res) => {
+    const goal = await Goal.findById(req.params.id);
+
+    if(!goal){
+        res.status(400);
+        throw new Error("goal not found")
+    }
+    const updateGoal = await Goal.findByIdAndUpdate(goal,req.body,{new:true});
+
   res.status(200).json({
     status: true,
-    messgae: `this route is working ${req.params.id}`,
+    data :updateGoal,
   });
 });
 
 export const getGoal = asynHandler(async (req, res) => {
+    const goal = await Goal.findById(req.params.id);
+
+    if(!goal){
+        res.status(400);
+        throw new Error("goal not found")
+    }
   res.status(200).json({
     status: true,
-    messgae: `this route is working ${req.params.id}`,
+    data: goal,
   });
 });
 
 export const deleteGoal = asynHandler(async (req, res) => {
-  res.status(200).json({
+    const goal = await Goal.findById(req.params.id);
+
+    if(!goal){
+        res.status(400);
+        throw new Error("goal not found")
+    }
+    await Goal.findByIdAndDelete(goal);
+  res.status(204).json({
     status: true,
-    messgae: `this route is working ${req.params.id}`,
+    data: goal,
   });
 });
