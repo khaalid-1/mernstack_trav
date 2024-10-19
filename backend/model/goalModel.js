@@ -2,11 +2,8 @@
 import mongoose from "mongoose";
 
 const goalSchema = mongoose.Schema({
-    user:{
-        type:mongoose.Schema.Types.ObjectId,
-        ruquired:true,
-        ref:"User"
-    },
+   
+    
     text:{
         type:String,
         required:true

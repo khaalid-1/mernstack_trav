@@ -16,7 +16,7 @@ connectDB();
 
 
 app.use("/api/v1/goals",goalRouter)
-app.use("/api/v1/goals",userRouter)
+app.use("/api/v1/users",userRouter)
 
 app.use(errorHandler)
 app.listen(config.port, () => {
